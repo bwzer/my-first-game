@@ -1,2 +1,2 @@
 # my-first-game
-Using godot
+Using pygame
