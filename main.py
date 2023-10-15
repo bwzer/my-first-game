@@ -1,8 +1,17 @@
 import pygame
+from pygame import mixer
 import random
 import button
 
 pygame.init()
+mixer.init()
+mixer.music.load('sound/BattleMageBackground.ogg')
+mixer.music.set_volume(0.2)
+mixer.music.play(loops=-1)
+
+knight_attack_sound = mixer.Sound('sound/knight_attack.wav')
+bandit_attack_sound = mixer.Sound('sound/bandit_attack.wav')
+
 
 clock = pygame.time.Clock()
 fps = 60
@@ -139,6 +148,7 @@ class Fighter():
         self.update_time = pygame.time.get_ticks()
 
     def attack(self, target):
+        knight_attack_sound.play()
         # deal damage to enemy
         rand = random.randint(-5, 5)
         damage = self.strength + rand
@@ -330,6 +340,7 @@ while run:
                         # attack
                         else:
                             bandit.attack(knight)
+                            bandit_attack_sound.play()
                             current_fighter += 1
                             action_cooldown = 0
                 else:
